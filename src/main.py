@@ -1,12 +1,7 @@
-from data_utils import find_by_name, filter_by_value, count_items
+from file_utils import save_text, load_text, append_text, count_lines
 
-students = [
-    {"name": "Анна", "city": "Казань", "age": 20},
-    {"name": "Иван", "city": "Москва", "age": 21},
-    {"name": "Ольга", "city": "Казань", "age": 19},
-    {"name": "Павел", "city": "Уфа", "age": 22}
-]
+save_text("project_note.txt", "Это первая строка проекта.")
+append_text("project_note.txt", "Это вторая строка проекта.")
 
-print(find_by_name(students, "Иван"))
-print(filter_by_value(students, "city", "Казань"))
-print(count_items(students))
+print(load_text("project_note.txt"))
+print("Количество строк:", count_lines("project_note.txt"))
