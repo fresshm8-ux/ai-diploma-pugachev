@@ -4,6 +4,12 @@ def find_by_name(data, name):
             return item
     return None
 
+def find_by_make(data, make):
+    for item in data:
+        if item["make"] == make:
+            return item
+    return None
+
 def filter_by_value(data, key, value):
     result = []
     for item in data:

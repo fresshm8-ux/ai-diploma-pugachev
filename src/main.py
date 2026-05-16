@@ -1,23 +1,23 @@
 from text_utils import normalize_text, word_count, contains_word
-from data_utils import find_by_name, filter_by_value, count_items
+from data_utils import find_by_make, filter_by_value, count_items
 from file_utils import save_text, load_text, append_text, count_lines
-from csv_utils import save_csv, load_csv, count_csv_rows, sum_column
+from csv_utils import save_csv, load_csv, count_csv_rows, sum_column, average_column
 from json_utils import save_json, load_json, dict_to_json_text
 
 
-def build_project_report(text, tasks, students):
+def build_project_report(text, tasks, cars):
     clean_text = normalize_text(text)
     words = word_count(clean_text)
     has_python = contains_word(clean_text, "python")
     task_count = count_items(tasks)
-    student_count = count_items(students)
+    car_count = count_items(cars)
 
     report = {
         "clean_text": clean_text,
         "word_count": words,
         "has_python": has_python,
         "task_count": task_count,
-        "student_count": student_count
+        "car_count": car_count
     }
 
     return report
@@ -36,18 +36,20 @@ def run_project_scenario():
         "собрать проект"
     ]
 
-    students = [
-        {"name": "Анна", "city": "Казань", "age": 20},
-        {"name": "Иван", "city": "Москва", "age": 21},
-        {"name": "Ольга", "city": "Казань", "age": 19},
-        {"name": "Павел", "city": "Уфа", "age": 22}
+    cars = [
+        {"make": "Toyota", "model": "Corolla", "volume in ml": 1500},
+        {"make": "Volkswagen", "model": "Tayron", "volume in ml": 1400},
+        {"make": "Kia", "model": "K3", "volume in ml": 2000},
+        {"make": "Volkswagen", "model": "Golf", "volume in ml": 2000},
+        {"make": "Mazda", "model": "CX-4", "volume in ml": 2500}
     ]
 
     # 2. Работа с текстом и данными
-    report = build_project_report(text, tasks, students)
+    report = build_project_report(text, tasks, cars)
 
-    found_student = find_by_name(students, "Иван")
-    kazan_students = filter_by_value(students, "city", "Казань")
+    found_toyota = find_by_make(cars, "Toyota")
+    found_Volkswagen = find_by_make(cars, "Volkswagen")
+    cars_2000ml = filter_by_value(cars, "volume in ml", 2000)
 
     # 3. Работа с текстовым файлом
     save_text("project_note.txt", report["clean_text"])
@@ -58,22 +60,25 @@ def run_project_scenario():
 
     # 4. Работа с CSV
     rows = [
-        ["title", "price", "count"],
-        ["Ноутбук", 50000, 2],
-        ["Мышь", 1500, 5],
-        ["Клавиатура", 3000, 3]
+        ["vender", "model_name", "memory_gb", "rating", "reviews"],
+        ["MSI", "NVIDIA RTX 4060", 8, 4.85, 30],
+        ["GigaByte", "NVIDIA RTX 5070 TI", 16, 4.9, 311],
+        ["Asus", "AMD Radeon RX 9070", 24, 4.7, 101]
     ]
 
     save_csv("products.csv", rows)
     loaded_products = load_csv("products.csv")
     product_rows = count_csv_rows("products.csv")
-    total_price = sum_column("products.csv", 1)
+    average_rating = average_column("products.csv", 3)
+    average_rating = round(average_rating, 2)
+    total_reviews = sum_column("products.csv", 4)
+
 
     # 5. Работа с JSON
     project_config = {
-        "project_name": "student_final_project",
+        "project_name": "car_final_project",
         "task_count": report["task_count"],
-        "student_count": report["student_count"],
+        "car_count": report["car_count"],
         "note_lines": note_lines,
         "product_rows": product_rows
     }
@@ -91,10 +96,11 @@ def run_project_scenario():
     print("Есть слово python:", report["has_python"])
     print()
 
-    print("2. Данные студентов:")
-    print("Найден студент Иван:", found_student)
-    print("Студенты из Казани:", kazan_students)
-    print("Количество студентов:", report["student_count"])
+    print("2. Данные авто:")
+    print("Найденное авто Toyota:", found_toyota)
+    print("Найденное авто Volkswagen:", found_Volkswagen)
+    print("Авто с 2л:", cars_2000ml)
+    print("Количество авто:", report["car_count"])
     print()
 
     print("3. Текстовый файл:")
@@ -106,7 +112,8 @@ def run_project_scenario():
     print("4. CSV:")
     print("Данные products.csv:", loaded_products)
     print("Количество строк в CSV:", product_rows)
-    print("Сумма столбца price:", total_price)
+    print("Средний rating:", average_rating)
+    print("Количество reviews:", total_reviews)
     print()
 
     print("5. JSON:")
