@@ -1,11 +1,12 @@
 # AI Diploma Project
  
 ## 1. Загружаем функции из заранее подготовленных репозиторий
-from text_utils import normalize_text, word_count, contains_word
-from data_utils import find_by_make, filter_by_value, count_items
-from file_utils import save_text, load_text, append_text, count_lines
-from csv_utils import save_csv, load_csv, count_csv_rows, sum_column, average_column
-from json_utils import save_json, load_json, dict_to_json_text
+# 1
+# 2 from text_utils import normalize_text, word_count, contains_word
+# 3 from data_utils import find_by_make, filter_by_value, count_items
+# 4 from file_utils import save_text, load_text, append_text, count_lines
+# 5 from csv_utils import save_csv, load_csv, count_csv_rows, sum_column, average_column
+# 6 from json_utils import save_json, load_json, dict_to_json_text
 ## 2. Записываем новые функции
 build_project_report
 1. normalize_text - номализация текста
