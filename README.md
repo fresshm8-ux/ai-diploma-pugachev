@@ -1,110 +1,95 @@
-# AI Diploma Project
- 
-## Как запустить (локально в VS Code)
-1) Установите Python 3.11+
-2) (Рекомендуется) создайте окружение и установите зависимости:
-   ```bash
-   python -m venv venv
-   source venv/Scripts/activate
-   pip install -r requirements.txt
-   ```
-   git checkout -b feature/m1-project-structure
-3) Запуск CLI:
-   ```bash
-   python -m src.cli
-   ```
- 
-## Структура
-- `src/core.py` — логика (items, validate, stats)
-- `src/parsers.py` — парсинг/нормализация
-- `src/storage.py` — JSON, состояние, экспорт/импорт
-- `src/cli.py` — запуск и команды
-- `colab/` — ноутбуки lesson_XX / hw_XX
-- `data/` — локальные данные (в проде лучше БД/volume)
- 
-## команды
-venv/Scripts/activate
-git switch main
- 
-git switch feature/lesson-15-data-utils
-python -m src.main
- 
-## если что-то уже поменял в ветке
-git add .
-git commit -m "save progress"
-git checkout main
-git pull origin main
-git checkout -b feature/new-lesson
- 
-git add .
-git commit -m "save current progress"
-git checkout main
- 
-## если надо удалить ветки и создать заново
-## удаление ветки не изменяет main
-git branch
-git checkout main
-git pull origin main
-git branch -D feature/lesson-14-strings
-git branch -D feature/lesson-15-data-utils
-git branch -D feature/lesson-16-file-utils
-git push origin --delete feature/lesson-14-strings
-git push origin --delete feature/lesson-15-data-utils
-git push origin --delete feature/lesson-16-file-utils
-git checkout -b feature/new-lesson
-git push -u origin feature/new-lesson
- 
-## перейти в ветку, если она узе существует
-git switch feature/lesson-17-csv-utils
- 
-## в начале урока
+# Sales Analytics Project
+
+## 📊 Описание проекта
+Проект для анализа продаж с использованием SQLite и Python. Включает создание базы данных, генерацию тестовых данных и выполнение аналитических запросов.
+
+## 🚀 Технологии
+- Python 3.8+
+- SQLite3
+- Git
+- Tabulate (для форматированного вывода)
+
+## 📁 Структура проекта
+sales-analytics/
+├── main.py # Главный скрипт с анализом
+├── database/
+│ └── sales.db # SQLite база данных
+├── reports/
+│ └── analytics_report.txt # Сгенерированный отчет
+├── requirements.txt # Зависимости
+└── .gitignore # Игнорируемые файлы
+
+text
+
+## 🗄️ Структура базы данных
+
+### Таблица `products`
+- id (PRIMARY KEY)
+- name (TEXT) - название товара
+- category (TEXT) - категория
+- price (REAL) - цена
+
+### Таблица `customers`
+- id (PRIMARY KEY)
+- name (TEXT) - имя покупателя
+- email (TEXT) - email
+- city (TEXT) - город
+
+### Таблица `sales`
+- id (PRIMARY KEY)
+- product_id (FOREIGN KEY) - ID товара
+- customer_id (FOREIGN KEY) - ID покупателя
+- sale_date (TEXT) - дата продажи
+- quantity (INTEGER) - количество
+- total_amount (REAL) - сумма
+
+## 📈 Аналитические запросы
+
+1. **Выручка по категориям товаров** - анализ прибыли по категориям
+2. **Топ-10 покупателей** - определение лучших клиентов
+3. **Динамика продаж по месяцам** - сезонность и тренды
+4. **Средний чек по городам** - географический анализ
+5. **Самые популярные товары** - анализ спроса
+
+## 🛠️ Установка и запуск
+
+### 1. Клонирование репозитория
 ```bash
-# 1. Посмотреть ветку, состояние main, синхронизация с main, создать новую папку
-git branch
-git checkout main
-git pull origin main
-git checkout -b feature/lesson-17-csv-util
- 
-# 2. Переименовать текущую ветку
-# Было: feature/lesson-16-data-utils
-# Станет: feature/lesson-16-file-utils
-git branch -m feature/lesson-16-file-utils
- 
-# 3. Проверить, что ветка переименовалась
-git branch
- 
-# 4. Отправить новую ветку на GitHub
-git push -u origin feature/lesson-16-file-utils
- 
-# 5. Если старая ветка уже была на GitHub, удалить её там
-git push origin --delete feature/lesson-16-data-utils
- 
-# 6. Проверить статус
-git status
-```
-## в конце урока
-# 1. Посмотреть, какие файлы изменились
-git status
- 
-# 2. Добавить все изменения в commit
-git add .
- 
-# 3. Сделать commit
-git commit -m "feat: add lesson 17 csv utils"
- 
-# 4. Отправить ветку на GitHub
-git push -u origin feature/lesson-17-csv-utils
- 
-## дальше на гитхаб
-Create Pull Request → Merge Pull Request → Confirm merge
- 
-## после merge
-# 1. Вернуться в main
-git checkout main
- 
-# 2. Подтянуть свежий main после merge
-git pull origin main
- 
-# Если надо изменить ветку
-git add .
-git commit -m "save"
+git clone https://github.com/YOUR_USERNAME/sales-analytics.git
+cd sales-analytics
+2. Установка зависимостей
+bash
+pip install -r requirements.txt
+3. Запуск проекта
+bash
+python main.py
+📊 Пример вывода
+text
+📊 1. ВЫРУЧКА ПО КАТЕГОРИЯМ ТОВАРОВ:
++-------------+-----------+-----------------+
+| Категория   | Продажи   | Выручка (руб)    |
++=============+===========+=================+
+| Электроника | 76        | 6,383,000        |
+| Одежда      | 80        | 859,400          |
+| Дом         | 38        | 627,500          |
++-------------+-----------+-----------------+
+📄 Результаты
+После выполнения скрипта:
+
+Вывод в консоль с форматированными таблицами
+
+Файл reports/analytics_report.txt с полным отчетом
+
+🔄 Обновление данных
+Для генерации новых случайных данных просто удалите файл database/sales.db и запустите python main.py заново.
+
+👨‍💻 Автор
+[Пугаче А.В.]
+GitHub: [https://github.com/fresshm8-ux/ai-diploma-pugachev]
+
+### Шаг 7: Добавление requirements.txt
+
+Убедитесь, что `requirements.txt` существует:
+
+```txt
+tabulate==0.9.0
