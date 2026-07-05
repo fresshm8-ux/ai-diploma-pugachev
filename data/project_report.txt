@@ -1,0 +1,5 @@
+ 
+Project: Math Optimization Project 
+ 
+Final x: 2.999695320129995 
+Final loss: 2.0000000928298234 

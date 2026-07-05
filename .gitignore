@@ -20,3 +20,8 @@ Thumbs.db
 # Reports
 reports/*.csv
 reports/*.json
+
+.venv/ 
+__pycache__/ 
+*.pyc 
+ 
